@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitecatalog xmlns="http://pegasus.isi.edu/schema/sitecatalog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pegasus.isi.edu/schema/sitecatalog http://pegasus.isi.edu/schema/sc-4.1.xsd" version="4.1">
+
+   <!-- The local site contains information about the submit host -->
+   <site handle="local" arch="x86_64" os="LINUX">
+      <!-- This is where intermediate data will be stored -->
+      <directory type="shared-scratch" path="/local-scratch/rafsilva/task-clustering-workflow/scratch">
+         <file-server operation="all" url="file:///local-scratch/rafsilva/task-clustering-workflow/scratch"/>
+      </directory>
+      <!-- This is where output data will be stored -->
+      <directory type="shared-storage" path="/local-scratch/rafsilva/task-clustering-workflow/output">
+         <file-server operation="all" url="file:///local-scratch/rafsilva/task-clustering-workflow/output"/>
+      </directory>
+   </site>
+
+   <site handle="osg" arch="x86_64" os="linux">
+       <profile namespace="pegasus" key="data.configuration">condorio</profile>
+       <profile namespace="pegasus" key="style">condor</profile>
+       <profile namespace="condor" key="universe">vanilla</profile>
+       <profile namespace="condor" key="request_memory">2 GB</profile>
+       <profile namespace="condor" key="request_disk">40 GB</profile>
+       <profile namespace="condor" key="+ProjectName" >"mint"</profile>
+       <profile namespace="condor" key="requirements" >regexp("workflow.isi.edu", Machine)</profile>
+       <profile namespace="condor" key="periodic_remove">(JobStatus == 5 &amp;&amp; (CurrentTime - EnteredCurrentStatus) &gt; 120)</profile>
+   </site>
+
+   <site handle="condor_pool" arch="x86_64" os="LINUX">
+      <directory type="shared-scratch" path="/local-scratch/rafsilva/task-clustering-workflow/scratch">
+        <file-server operation="all" url="file:///local-scratch/rafsilva/task-clustering-workflow/scratch"/>
+      </directory>
+      <!-- These profiles tell Pegasus that the site is a plain Condor pool -->
+      <profile namespace="condor" key="universe">vanilla</profile>
+      <profile namespace="pegasus" key="style">condor</profile>
+      <profile namespace="pegasus" key="data.configuration">condorio</profile>
+
+      <!-- This profile tells Pegasus where the worker package is installed on PegasusVM -->
+      <profile namespace="env" key="PEGASUS_HOME">/usr</profile>
+   </site>
+</sitecatalog>
