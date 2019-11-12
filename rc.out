@@ -1,0 +1,1 @@
+(GENOME|SIPHT|CYBERSHAKE|MONTAGE)_(50|250|500).*(kth|sdsc).*\.json file:///local-scratch/rafsilva/task-clustering-workflow/output/[1]/[2]/[3]/[0] site="local" regex="true"

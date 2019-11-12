@@ -33,16 +33,16 @@ with open(options.config) as config_file:
 
   # simulation jobs
   for wf in data['workflows']:
-
-    # generate sub workflow per workflow
-    subwf_id = "subwf_" + wf.replace(".dax", "")
-    subwf = ADAG(subwf_id)
-
     for tf in data['trace_files']:
+
+      # generate sub workflow per workflow
+      subwf_id = "subwf_" + wf.replace(".dax", "") + "_" + tf[0].replace(".json", "")
+      subwf = ADAG(subwf_id)
+
       for max_sys_jobs in data['max_sys_jobs']:
         for st in data['start_times']:
           for alg in data['algorithms']:
-            output_file = wf + "_" + hashlib.md5(tf[1] + tf[0] + max_sys_jobs + st + alg).hexdigest() + ".json"
+            output_file = wf.replace(".dax", "") + "_" + tf[0].replace(".json", "") + "_" + hashlib.md5(tf[1] + max_sys_jobs + st + alg).hexdigest() + ".json"
             j = Job("wrench_simulator")
             j.addProfile(Profile(Namespace.CONDOR, key="+SingularityImage", value=html_parser.unescape("&quot;/cvmfs/singularity.opensciencegrid.org/wrenchproject/task-clustering:latest&quot;")))
             j.addArguments(tf[1]) # num_compute_nodes
