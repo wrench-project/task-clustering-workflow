@@ -1,0 +1,7 @@
+tr wrench_simulator {
+  site osg {
+    type "INSTALLED"
+    pfn "file:///simulator/task_clustering_batch_simulator/simulator"
+    profile pegasus "clusters.size" "20"
+  }
+}

@@ -1,0 +1,29 @@
+{
+    "trace_file_dir": "/simulator/trace_files/",
+    "trace_files": [
+        [
+            "kth_sp2.json",
+            "100"
+        ]
+    ],
+    "max_sys_jobs": [
+        "2"
+    ],
+    "algorithms": [
+        "zhang:noglobal:nobsearch:noprediction",
+        "static:one_job_per_task"
+    ],
+    "workflow_type": "dax:",
+    "workflow_dir": "/simulator/workflows/",
+    "workflows": [
+        "GENOME_50_360000.dax"
+    ],
+    "start_times": [
+        "86400",
+        "88200",
+        "90000",
+        "601200",
+        "603000",
+        "604800"
+    ]
+}

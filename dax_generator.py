@@ -48,7 +48,7 @@ with open(options.config) as config_file:
             j.addArguments(tf[1]) # num_compute_nodes
             j.addArguments(data['trace_file_dir'] + "/" + tf[0]) # job trace file
             j.addArguments(max_sys_jobs) # max jobs in system
-            j.addArguments(data['workflow_type'] + ":" + data['workflow_dir'] + "/" + wf) # workflow specification
+            j.addArguments(data['workflow_type'] + data['workflow_dir'] + "/" + wf) # workflow specification
             j.addArguments(st) # workflow start time
             j.addArguments(alg) # algorithm
             j.addArguments("conservative_bf") # batch algorithm
@@ -69,7 +69,7 @@ with open(options.config) as config_file:
     subwf_job.addProfile(Profile("dagman", "CATEGORY", "subwf"))
     subwf_job.uses(subwf_dax)
     subwf_job.addArguments("-Dpegasus.catalog.site.file=" + os.getcwd() + "/sites.xml",
-                           "--sites", "condor_pool",
+                           "--sites", "osg",
                            "--output-site", "local",
                            "--cluster", "horizontal",
                            "--cleanup", "inplace")
