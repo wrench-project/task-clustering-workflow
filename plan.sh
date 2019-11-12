@@ -22,6 +22,6 @@ pegasus-plan --conf pegasus.properties \
     --sites osg \
     --output-site local \
     --cleanup leaf \
-    --cluster horizontal
-#    --submit
+    --cluster horizontal \
+    --submit
 
