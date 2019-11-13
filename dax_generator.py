@@ -57,23 +57,23 @@ with open(options.config) as config_file:
             j.uses(File(output_file), link=Link.OUTPUT, transfer=True)
             subwf.addJob(j)
     
-    # write subworkflow DAX file
-    with open(subwf_dir + "/" + subwf_id + ".xml", "w") as subwf_out:
-      subwf.writeXML(subwf_out)
+      # write subworkflow DAX file
+      with open(subwf_dir + "/" + subwf_id + ".xml", "w") as subwf_out:
+        subwf.writeXML(subwf_out)
     
-    subwf_dax = File(subwf_id + ".xml")
-    subwf_dax.addPFN(PFN("file://" + os.getcwd() + "/" + subwf_dir + "/" + subwf_id + ".xml", "local"))
-    workflow.addFile(subwf_dax)
+      subwf_dax = File(subwf_id + ".xml")
+      subwf_dax.addPFN(PFN("file://" + os.getcwd() + "/" + subwf_dir + "/" + subwf_id + ".xml", "local"))
+      workflow.addFile(subwf_dax)
 
-    subwf_job = DAX(subwf_id + ".xml", id=subwf_id)
-    subwf_job.addProfile(Profile("dagman", "CATEGORY", "subwf"))
-    subwf_job.uses(subwf_dax)
-    subwf_job.addArguments("-Dpegasus.catalog.site.file=" + os.getcwd() + "/sites.xml",
-                           "--sites", "osg",
-                           "--output-site", "local",
-                           "--cluster", "horizontal",
-                           "--cleanup", "inplace")
-    workflow.addDAX(subwf_job)
+      subwf_job = DAX(subwf_id + ".xml", id=subwf_id)
+      subwf_job.addProfile(Profile("dagman", "CATEGORY", "subwf"))
+      subwf_job.uses(subwf_dax)
+      subwf_job.addArguments("-Dpegasus.catalog.site.file=" + os.getcwd() + "/sites.xml",
+                             "--sites", "osg",
+                             "--output-site", "local",
+                             "--cluster", "horizontal",
+                             "--cleanup", "inplace")
+      workflow.addDAX(subwf_job)
 
   # Write the DAX to file
   f = open(options.daxfile, "w")
